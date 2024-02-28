@@ -1,0 +1,105 @@
+<html>
+{% extends 'base.html' %}
+{% block pagetitle %}
+AI Engine
+{% endblock pagetitle %}
+
+{% block body %}
+<style>
+    body {
+      background-image: url('https://png.pngtree.com/background/20230607/original/pngtree-close-up-of-plants-in-tropical-jungle-picture-image_2903460.jpg');
+      background-size: cover;
+     
+      height: 100vh;
+      margin: 0;
+      /* Additional styling if needed */
+    }
+</style>
+<div>
+    <div class="container">
+        <!-- For demo purpose -->
+        <div class="row mb-5 text-center text-white">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="display-4" style="padding-top: 2%;font-weight: 400;color: rgb(219, 245, 219);"><b>AI Engine</b></h1>
+                <br><p class="lead" style="font-weight: 500;color: rgb(199, 252, 200);">Let AI Engine Will Help You To Detect Disease</p>
+            </div>
+        </div>
+        <!-- End -->
+        <div class="row ">
+            <div class="col mx-auto">
+                <div class="p-5 bg-white shadow rounded-lg" style="height: 90%;">
+
+                    <h5><b>Why is it necessary to detect disease in plant ?</b></h5>
+                    <p>Plant diseases affect the growth of their respective species. In addition, some research gaps are
+                        identified from which to obtain greater transparency for detecting diseases in plants, even
+                        before their symptoms appear clearly.
+                        diagnosis is one of the most important aspects of a plant pathologist's training. Without proper
+                        identification of the disease and the disease-causing agent, disease control measures can be a
+                        waste of time and money and can lead to further plant losses. Proper disease diagnosis is
+                        necessary.
+                    </p>
+                </div>
+            </div>
+            <div class="col mx-auto">
+                
+                <div class="p-5 bg-white shadow rounded-lg" style="height: 90%;">
+                    <h6 class="text-center mb-4 text-muted">
+                        Upload the image of the diseased leaf for inspection.
+                    </h6>
+                    <form action="/submit" method="POST" enctype="multipart/form-data">
+                        <div class="custom-file overflow-hidden mb-4">
+                            <input type="file" id="actual-btn" hidden name="image" onchange="updateImage()" />
+                            <label for="actual-btn">Choose File</label>
+                            <span id="file-chosen">No file chosen</span>
+                            <img id="preview-image" height="300" alt="" width="300" class="d-block mx-auto mb-4 rounded-pill">
+                        </div>
+                    
+                
+                    <script>
+                        function updateImage() {
+                            var input = document.getElementById('actual-btn');
+                            var preview = document.getElementById('preview-image');
+                            var fileChosen = document.getElementById('file-chosen');
+                
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                
+                                reader.onload = function (e) {
+                                    preview.src = e.target.result;
+                                };
+                
+                                reader.readAsDataURL(input.files[0]);
+                
+                                fileChosen.innerHTML = 'File chosen: ' + input.files[0].name;
+                            } else {
+                                preview.src = '';
+                                fileChosen.innerHTML = 'No file chosen';
+                            }
+                        }
+                    </script>
+                    
+               
+                        <center>
+                            <a class="mx-2"><button type="submit" class="btn btn-outline-success">Submit</button></a>
+                        </center>
+                    </form>
+                    <!-- End -->
+                </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<script>
+    const actualBtn = document.getElementById('actual-btn');
+
+    const fileChosen = document.getElementById('file-chosen');
+
+    actualBtn.addEventListener('change', function () {
+        fileChosen.textContent = this.files[0].name
+    })
+</script>
+
+{% endblock body %}
